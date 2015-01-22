@@ -39,10 +39,9 @@ func RegisterRobot(command string, r Robot) {
 }
 
 func (i *IncomingWebhook) Send() error {
-	webhook := url.URL{
-		Scheme: "https",
-		Host:   Config.Domain + ".slack.com",
-		Path:   "/services/hooks/incoming-webhook",
+	webhook, err := url.Parse(Config.Url)
+	if err != nil {
+		return err
 	}
 
 	p, err := json.Marshal(i)
@@ -52,7 +51,6 @@ func (i *IncomingWebhook) Send() error {
 
 	data := url.Values{}
 	data.Set("payload", string(p))
-	data.Set("token", Config.Token)
 
 	webhook.RawQuery = data.Encode()
 	resp, err := http.PostForm(webhook.String(), data)

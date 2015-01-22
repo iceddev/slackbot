@@ -8,6 +8,7 @@ type SlashCommand struct {
 type Payload struct {
 	Token       string `schema:"token"`
 	TeamID      string `schema:"team_id"`
+	TeamDomain  string `schema:"team_domain"`
 	ChannelID   string `schema:"channel_id"`
 	ChannelName string `schema:"channel_name"`
 	UserID      string `schema:"user_id"`
@@ -74,9 +75,8 @@ type AttachmentField struct {
 }
 
 type Configuration struct {
-	Domain string `schema:"domain"`
 	Port   int    `schema:"port"`
-	Token  string `schema:"token"`
+	Url  string `schema:"url"`
 }
 
 type Robot interface {
