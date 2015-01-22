@@ -33,13 +33,20 @@ func (d DecideBot) DeferredAction(p *Payload) {
 		UnfurlLinks: true,
 		Parse:       ParseStyleFull,
 	}
+	response2 := &IncomingWebhook{
+		Channel:     p.ChannelID,
+		Username:    "Fate Bot",
+		IconEmoji:   ":ghost:",
+		UnfurlLinks: true,
+		Parse:       ParseStyleFull,
+	}
 	text := strings.TrimSpace(p.Text)
 	if text != "" {
 		split := strings.Split(text, " ")
 		response.Text = fmt.Sprintf("@%s: Deciding between: (%s)", p.UserName, strings.Join(split, ", "))
-		go response.Send()
-		response.Text = fmt.Sprintf("@%s: Decided on: %s", p.UserName, Decide(split))
 		response.Send()
+		response2.Text = fmt.Sprintf("@%s: Decided on: %s", p.UserName, Decide(split))
+		response2.Send()
 	}
 }
 
