@@ -34,7 +34,7 @@ func (w WikiBot) DeferredAction(p *Payload) {
 		}
 
 		go response.Send()
-		resp, err := http.Get(fmt.Sprintf("http://www.google.com/search?q=(site:en.wikipedia.org+OR+site:ja.wikipedia.org)+%s&btnI", url.QueryEscape(text)))
+		resp, err := http.Get(fmt.Sprintf("http://www.google.com/search?q=(site:en.wikipedia.org)+%s&btnI", url.QueryEscape(text)))
 		defer resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
 			message := fmt.Sprintf("ERROR: Non-200 Response from Google: %s", resp.Status)
